@@ -1,12 +1,8 @@
 from django.contrib.auth import models
-from django.core.paginator import Paginator, EmptyPage,PageNotAnInteger
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import userprofile
 from django.contrib.auth.models import User
-from django.shortcuts import render, redirect
-from django.contrib.auth.models import User
-from django.contrib import messages
 
 # Create your views here.
 
