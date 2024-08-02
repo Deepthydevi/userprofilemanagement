@@ -1,4 +1,5 @@
 from django.contrib.auth import models
+from django.core.paginator import Paginator, EmptyPage,PageNotAnInteger
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import userprofile
@@ -29,12 +30,12 @@ def CreateProfile(request):
     return render(request,'createprofile.html')
 
 def listdetails(request):
-    values=userprofile.objects.all()
+    Users=userprofile.objects.all()
 
-    return render(request, 'viewprofile.html', {'values': values})
+    return render(request, 'viewprofile.html', {'Users': Users})
 
-def editdetails(request, p_id):
-    p=userprofile.objects.get(id=p_id)
+def editdetails(request, user_id):
+    user=userprofile.objects.get(id=user_id)
     if request.method=='POST':
         fullname = request.POST.get('fullname')
         gender = request.POST.get('gender')
@@ -45,23 +46,23 @@ def editdetails(request, p_id):
         education = request.POST.get('education')
         skills = request.POST.get('skills')
 
-        p.fullname = fullname
-        p.gender = gender
-        p.DOB = DOB
-        p.address = address
-        p.email = email
-        p.mobilenumber = mobilenumber
-        p.education = education
-        p.skills = skills
-        p.save()
+        user.fullname = fullname
+        user.gender = gender
+        user.DOB = DOB
+        user.address = address
+        user.email = email
+        user.mobilenumber = mobilenumber
+        user.education = education
+        user.skills = skills
+        user.save()
         return redirect('details')
-    return render(request, 'editprofile.html', {'p':p})
+    return render(request, 'editprofile.html', {'user':user})
 
-def deletedetails(request,p_id):
-    p = userprofile.objects.get(id=p_id)
+def deletedetails(request,user_id):
+    user= userprofile.objects.get(id=user_id)
     if request.method=='POST':
 
-        p.delete()
+        user.delete()
 
         return redirect('details')
-    return render(request, 'deleteprofile.html', {'p': p})
+    return render(request, 'deleteprofile.html', {'user': user})
